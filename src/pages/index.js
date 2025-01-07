@@ -7,3 +7,4 @@ export * from "./ConditionalRendering";
 export * from "./Login";
 export * from "./Memo";
 export * from "./Checkout";
+export * from "./Payment";

@@ -19,6 +19,7 @@ export const PublicRouter = () => {
         <Route exact path="/item/:id" element={<Item />} />
         <Route exact path="/category/:id" element={<Category />} />
         <Route exact path="/checkout" element={<Checkout />} />
+        <Route exact path="/payment" element={<Payment />} />
         <Route
           exact
           path="/conditional/rendering"
