@@ -1,16 +1,19 @@
 import { ChakraProvider } from "@chakra-ui/react";
 import { Layout } from "./layouts";
 import { PublicRouter } from "./router";
-
-//SOLID --> Single Responsability
+import { CartProvider } from "./context";
+import { LoginRouter } from "./router/LoginRouter";
 
 function App() {
+  const isUserConnected = localStorage.getItem("isUserConnected");
   return (
-    <ChakraProvider>
-      <Layout>
-        <PublicRouter />
-      </Layout>
-    </ChakraProvider>
+    <CartProvider>
+      <ChakraProvider>
+        <Layout>
+          {isUserConnected === "true" ? <PublicRouter /> : <LoginRouter />}
+        </Layout>
+      </ChakraProvider>
+    </CartProvider>
   );
 }
 

@@ -16,9 +16,24 @@ import {
   List,
   ListItem,
 } from "@chakra-ui/react";
+import { useContext, useState } from "react";
 import { MdLocalShipping } from "react-icons/md";
+import { CartContext } from "../../context";
 
 export const ItemDetailContainer = ({ product }) => {
+  const [count, setCount] = useState(0);
+  const { addItem, removeItem } = useContext(CartContext);
+
+  const handleRemoveProduct = () => {
+    setCount(count - 1);
+    removeItem(product)
+  };
+
+  const handleAddProduct = () => {
+    setCount(count + 1);
+    addItem(product);
+  };
+
   return (
     <Container maxW={"7xl"}>
       <SimpleGrid
@@ -101,22 +116,15 @@ export const ItemDetailContainer = ({ product }) => {
             </Box>
           </Stack>
 
-          <Button
-            rounded={"none"}
-            w={"full"}
-            mt={8}
-            size={"lg"}
-            py={"7"}
-            bg={useColorModeValue("gray.900", "gray.50")}
-            color={useColorModeValue("white", "gray.900")}
-            textTransform={"uppercase"}
-            _hover={{
-              transform: "translateY(2px)",
-              boxShadow: "lg",
-            }}
+          <Flex
+            alignItems={"center"}
+            width={"200px"}
+            justifyContent={"space-around"}
           >
-            Add to cart
-          </Button>
+            <Button onClick={handleRemoveProduct}>-</Button>
+            <Text>{count}</Text>
+            <Button onClick={handleAddProduct}>+</Button>
+          </Flex>
 
           <Stack direction="row" alignItems="center" justifyContent={"center"}>
             <MdLocalShipping />

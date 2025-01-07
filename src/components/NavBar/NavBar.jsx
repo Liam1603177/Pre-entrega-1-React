@@ -17,14 +17,14 @@ import {
 } from "@chakra-ui/react";
 import { MoonIcon, SunIcon, ChevronDownIcon } from "@chakra-ui/icons";
 
-import { useGetAllCategories } from "../../hooks/useGetAllCategories";
+import { useGetAllProducts } from "../../hooks/useGetAllProducts";
 
 import { CartWidget } from "../index";
-
+import { createProductsFirestore } from "../../helpers";
 export const NavBar = () => {
   const { colorMode, toggleColorMode } = useColorMode();
 
-  const { categories } = useGetAllCategories();
+  const { Items } = useGetAllProducts("categories");
 
   return (
     <>
@@ -39,7 +39,7 @@ export const NavBar = () => {
               Categorias
             </MenuButton>
             <MenuList height={"300px"} overflowY={"scroll"}>
-              {categories.map((category) => {
+              {Items.map((category) => {
                 return (
                   <MenuItem key={category.slug}>
                     <Link to={`/category/${category.slug}`}>
@@ -50,6 +50,8 @@ export const NavBar = () => {
               })}
             </MenuList>
           </Menu>
+
+          <Button onClick={()=> createProductsFirestore("products")}>Agregar</Button>
 
           <Flex alignItems={"center"}>
             <CartWidget />

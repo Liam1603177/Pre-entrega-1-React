@@ -1,7 +1,15 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import { Category, Home, Item, NotFound } from "../pages";
+import {
+  Category,
+  ConditionalRendering,
+  Home,
+  Item,
+  NotFound,
+  Memo,
+  Checkout,
+} from "../pages";
 import { NavBar } from "../components";
-//HOC --> Higher order component (HOF --> Higher Order Function)
+
 export const PublicRouter = () => {
   return (
     <Router>
@@ -10,6 +18,13 @@ export const PublicRouter = () => {
         <Route exact path="/" element={<Home />} />
         <Route exact path="/item/:id" element={<Item />} />
         <Route exact path="/category/:id" element={<Category />} />
+        <Route exact path="/checkout" element={<Checkout />} />
+        <Route
+          exact
+          path="/conditional/rendering"
+          element={<ConditionalRendering />}
+        />
+        <Route exact path="/memo" element={<Memo />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
     </Router>

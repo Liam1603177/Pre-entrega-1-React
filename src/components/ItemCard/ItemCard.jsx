@@ -7,11 +7,10 @@ import {
   Image,
   Badge,
   useColorModeValue,
-  Icon,
-  chakra,
-  Tooltip,
+  Skeleton,
 } from "@chakra-ui/react";
 import { BsStar, BsStarFill, BsStarHalf } from "react-icons/bs";
+import { useState } from "react";
 import { FiShoppingCart } from "react-icons/fi";
 
 function Rating({ rating, numReviews }) {
@@ -43,6 +42,9 @@ function Rating({ rating, numReviews }) {
 }
 
 export const ItemCard = ({ data }) => {
+
+  const [isLoaded, setIsLoaded] = useState(false);
+
   return (
     <Link to={`/item/${data.id}`}>
       <Flex padding={"20px"} alignItems="center" justifyContent="center">
@@ -64,11 +66,21 @@ export const ItemCard = ({ data }) => {
             />
           )}
 
-          <Image
-            src={data.thumbnail}
-            alt={`Picture of ${data.name}`}
-            roundedTop="lg"
-          />
+<Box position="relative">
+            <Skeleton isLoaded={isLoaded}>
+              <Box height={!isLoaded ? "300px" : "auto"}>
+                <Image
+                boxSize='300px'
+    objectFit='cover'
+                  src={data.thumbnail}
+                  alt={`Picture of ${data.name}`}
+                  roundedTop="lg"
+                  onLoad={() => setIsLoaded(true)}
+                />
+              </Box>
+            </Skeleton>
+          </Box>
+
 
           <Box p="6">
             <Box display="flex" alignItems="baseline">
@@ -91,7 +103,7 @@ export const ItemCard = ({ data }) => {
             </Flex>
 
             <Flex justifyContent="space-between" alignContent="center">
-              <Rating rating={data.rating} numReviews={data.reviews.length} />
+              <Rating rating={data.rating} />
               <Box
                 fontSize="2xl"
                 color={useColorModeValue("gray.800", "white")}

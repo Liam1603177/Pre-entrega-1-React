@@ -1,5 +1,5 @@
 import { Flex } from "@chakra-ui/react";
-import { ItemCard } from "../index";
+import { ItemCard, } from "../index";
 
 export const ItemListContainer = ({ products }) => {
   return (
